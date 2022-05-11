@@ -44,6 +44,7 @@ fun DisplayedProblem(exercise: String) {
     when(exercise) {
         "StepArray" -> StepArray()
         "FibonacciArray" -> FibonacciArray()
+        "FizzBuzz" -> FizzBuzz()
         else -> {
             Text(text = "Invalid Exercise")
         }
@@ -109,6 +110,42 @@ fun FibonacciArray() {
             t2 = sum
         }
         Text(text = testArray.joinToString(", "))
+    }
+    else {
+        Text(text = "Invalid Input")
+    }
+
+}
+
+@Composable
+fun FizzBuzz() {
+    var size by remember { mutableStateOf(TextFieldValue("")) }
+    TextField(
+        value = size,
+        onValueChange = {size = it} ,
+        placeholder = { Text(text = "size") }
+    )
+
+    val sizeNull = size.text.toIntOrNull()
+    if (sizeNull != null) {
+        val sizeInt = sizeNull.toInt()
+        val fizzBuzzList = mutableListOf<Any>()
+        for (i in 1..sizeInt) {
+            if (i % 15 == 0) {
+                fizzBuzzList.add("FizzBuzz")
+            }
+            else if(i % 3 == 0) {
+                fizzBuzzList.add("Fizz")
+            }
+            else if (i % 5 == 0) {
+                fizzBuzzList.add("Buzz")
+            }
+
+            else {
+                fizzBuzzList.add(i)
+            }
+        }
+        Text(text = fizzBuzzList.joinToString(", "))
     }
     else {
         Text(text = "Invalid Input")
